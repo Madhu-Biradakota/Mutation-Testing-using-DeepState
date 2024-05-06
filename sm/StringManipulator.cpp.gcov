@@ -1,0 +1,78 @@
+        -:    0:Source:StringManipulator.cpp
+        -:    0:Graph:StringManipulator.gcno
+        -:    0:Data:StringManipulator.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// StringManipulator.cpp
+        -:    2:#include "StringManipulator.h"
+        -:    3:#include <algorithm>
+        -:    4:#include <cctype>
+        -:    5:
+        1:    6:std::string StringManipulator::reverseString(const std::string& str) {
+        1:    7:    std::string reversedStr = str;
+        1:    8:    std::reverse(reversedStr.begin(), reversedStr.end());
+        1:    9:    return reversedStr;
+        2:   10:}
+        -:   11:
+        1:   12:std::string StringManipulator::toUpperCase(const std::string& str) {
+        1:   13:    std::string upperStr = str;
+        2:   14:    std::transform(upperStr.begin(), upperStr.end(), upperStr.begin(),
+       22:   15:                   [](unsigned char c){ return std::toupper(c); });
+        1:   16:    return upperStr;
+        2:   17:}
+        -:   18:
+        1:   19:std::string StringManipulator::toLowerCase(const std::string& str) {
+        1:   20:    std::string lowerStr = str;
+        2:   21:    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(),
+       22:   22:                   [](unsigned char c){ return std::tolower(c); });
+        1:   23:    return lowerStr;
+        2:   24:}
+        -:   25:
+    #####:   26:std::string StringManipulator::concatenateStrings(const std::string& str1, const std::string& str2) {
+    #####:   27:    return str1 + str2;
+        -:   28:}
+        -:   29:
+    #####:   30:int StringManipulator::findSubstring(const std::string& str, const std::string& substr) {
+    #####:   31:    size_t found = str.find(substr);
+    #####:   32:    if (found != std::string::npos)
+    #####:   33:        return static_cast<int>(found);
+        -:   34:    else
+    #####:   35:        return -1;
+    #####:   36:}
+        -:   37:
+        1:   38:bool StringManipulator::isPalindrome(const std::string& str) {
+        1:   39:    int left = 0;
+        1:   40:    int right = str.length() - 1;
+        -:   41:
+        2:   42:    while (left < right) {
+        1:   43:        if (std::tolower(str[left]) != std::tolower(str[right])) {
+        1:   44:            return false;
+        -:   45:        }
+    #####:   46:        ++left;
+    #####:   47:        --right;
+        -:   48:    }
+    #####:   49:    return true;
+        1:   50:}
+        -:   51:
+        1:   52:int StringManipulator::countVowels(const std::string& str) {
+        1:   53:    int count = 0;
+       46:   54:    for (char ch : str) {
+       11:   55:        switch (std::tolower(ch)) {
+        -:   56:            case 'a':
+        -:   57:            case 'e':
+        -:   58:            case 'i':
+        -:   59:            case 'o':
+        -:   60:            case 'u':
+        3:   61:                ++count;
+        3:   62:                break;
+        -:   63:            default:
+        8:   64:                break;
+        -:   65:        }
+        -:   66:    }
+        1:   67:    return count;
+        -:   68:}
+        -:   69:
+        1:   70:std::string StringManipulator::replaceChar(std::string str, char oldChar, char newChar) {
+        1:   71:    std::replace(str.begin(), str.end(), oldChar, newChar);
+        1:   72:    return str;
+        -:   73:}

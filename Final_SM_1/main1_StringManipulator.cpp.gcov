@@ -1,0 +1,72 @@
+        -:    0:Source:main1_StringManipulator.cpp
+        -:    0:Graph:main1_StringManipulator.gcno
+        -:    0:Data:main1_StringManipulator.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "StringManipulator.h"
+        -:    2:#include <iostream>
+        -:    3:#include <vector>
+        -:    4:
+        1:    5:int main() {
+        -:    6:    // Example usage of reverse
+        2:    7:    std::string original = "Hello, World!";
+        1:    8:    std::string reversed = StringManipulator::reverse(original);
+        3:    9:    std::cout << "Reversed: " << reversed << std::endl;
+        -:   10:
+        -:   11:    // Example usage of toUpperCase and toLowerCase
+        1:   12:    std::string upper = StringManipulator::toUpperCase(original);
+        1:   13:    std::string lower = StringManipulator::toLowerCase(original);
+        3:   14:    std::cout << "Upper: " << upper << std::endl;
+        3:   15:    std::cout << "Lower: " << lower << std::endl;
+        -:   16:
+        -:   17:    // Example usage of replace
+        4:   18:    std::string replaced = StringManipulator::replace(original, "World", "Everyone");
+        3:   19:    std::cout << "Replaced: " << replaced << std::endl;
+        -:   20:
+        -:   21:    // Example usage of remove
+        3:   22:    std::string removed = StringManipulator::remove(replaced, "Everyone");
+        3:   23:    std::cout << "Removed: " << removed << std::endl;
+        -:   24:
+        -:   25:    // Example usage of countWords
+        2:   26:    int words = StringManipulator::countWords(original);
+        3:   27:    std::cout << "Word Count: " << words << std::endl;
+        -:   28:
+        -:   29:    // Example usage of isPalindrome
+        3:   30:    bool palindrome = StringManipulator::isPalindrome("madam");
+        3:   31:    std::cout << "Is Palindrome: " << (palindrome ? "Yes" : "No") << std::endl;
+        -:   32:
+        -:   33:    // Example usage of findSubstring
+        3:   34:    size_t pos = StringManipulator::findSubstring(original, "World");
+        3:   35:    std::cout << "Substring position: " << pos << std::endl;
+        -:   36:
+        -:   37:    // Example usage of split
+        1:   38:    std::vector<std::string> splitResult = StringManipulator::split(original, ',');
+        1:   39:    std::cout << "Split result: ";
+       10:   40:    for (const auto& s : splitResult) {
+        4:   41:        std::cout << s << " ";
+        -:   42:    }
+        1:   43:    std::cout << std::endl;
+        -:   44:
+        -:   45:    // Example usage of digitsToWords
+        2:   46:    std::string digits = "123";
+        1:   47:    std::string wordsFromDigits = StringManipulator::digitsToWords(digits);
+        3:   48:    std::cout << "Digits to words: " << wordsFromDigits << std::endl;
+        -:   49:
+        -:   50:    // Example usage of interleave
+        4:   51:    std::string interleaved = StringManipulator::interleave("abc", "123");
+        3:   52:    std::cout << "Interleaved: " << interleaved << std::endl;
+        -:   53:
+        -:   54:    // Example usage of findAllSubstrings
+        4:   55:    std::vector<size_t> allSubs = StringManipulator::findAllSubstrings("hello hello hello", "lo");
+        1:   56:    std::cout << "All substrings 'lo' found at positions: ";
+       14:   57:    for (auto p : allSubs) {
+        6:   58:        std::cout << p << " ";
+        -:   59:    }
+        1:   60:    std::cout << std::endl;
+        -:   61:
+        -:   62:    // Example usage of shuffle
+        1:   63:    std::string shuffled = StringManipulator::shuffle(original);
+        3:   64:    std::cout << "Shuffled: " << shuffled << std::endl;
+        -:   65:
+        1:   66:    return 0;
+        1:   67:}
