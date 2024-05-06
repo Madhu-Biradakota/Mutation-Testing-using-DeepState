@@ -1,0 +1,67 @@
+        -:    0:Source:main_StringManipulator.cpp
+        -:    0:Graph:main_StringManipulator.gcno
+        -:    0:Data:main_StringManipulator.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:
+        -:    2:#include "StringManipulator.h"
+        -:    3:#include <iostream>
+        -:    4:#include <vector>
+        -:    5:
+        1:    6:int main() {
+        1:    7:    std::string inputString;
+        1:    8:    std::cout << "Enter a string: ";
+        1:    9:    std::getline(std::cin, inputString);
+        -:   10:
+        -:   11:    // Usage of all functions from StringManipulator
+        1:   12:    std::string reversed = StringManipulator::reverse(inputString);
+        3:   13:    std::cout << "Reversed: " << reversed << std::endl;
+        -:   14:
+        1:   15:    std::string upper = StringManipulator::toUpperCase(inputString);
+        3:   16:    std::cout << "Upper: " << upper << std::endl;
+        -:   17:
+        1:   18:    std::string lower = StringManipulator::toLowerCase(inputString);
+        3:   19:    std::cout << "Lower: " << lower << std::endl;
+        -:   20:
+        4:   21:    std::string replaced = StringManipulator::replace(inputString, "a", "o");
+        3:   22:    std::cout << "Replaced: " << replaced << std::endl;
+        -:   23:
+        3:   24:    std::string removed = StringManipulator::remove(inputString, " ");
+        3:   25:    std::cout << "Removed: " << removed << std::endl;
+        -:   26:
+        2:   27:    int words = StringManipulator::countWords(inputString);
+        3:   28:    std::cout << "Word Count: " << words << std::endl;
+        -:   29:
+        2:   30:    bool palindrome = StringManipulator::isPalindrome(inputString);
+        3:   31:    std::cout << "Is Palindrome: " << (palindrome ? "Yes" : "No") << std::endl;
+        -:   32:
+        3:   33:    size_t pos = StringManipulator::findSubstring(inputString, "o");
+        3:   34:    std::cout << "Substring position: " << pos << std::endl;
+        -:   35:
+        1:   36:    std::vector<std::string> splitResult = StringManipulator::split(inputString, ' ');
+        1:   37:    std::cout << "Split result: ";
+       18:   38:    for (const auto& s : splitResult) {
+        8:   39:        std::cout << s << " ";
+        -:   40:    }
+        1:   41:    std::cout << std::endl;
+        -:   42:
+        1:   43:    std::string shuffled = StringManipulator::shuffle(inputString);
+        3:   44:    std::cout << "Shuffled: " << shuffled << std::endl;
+        -:   45:
+        3:   46:    std::string joined = StringManipulator::join(splitResult, "-");
+        3:   47:    std::cout << "Joined: " << joined << std::endl;
+        -:   48:
+        1:   49:    std::string normalized = StringManipulator::normalizeSpaces(inputString);
+        3:   50:    std::cout << "Normalized Spaces: " << normalized << std::endl;
+        -:   51:
+        1:   52:    std::string capitalized = StringManipulator::capitalizeWords(inputString);
+        3:   53:    std::cout << "Capitalized Words: " << capitalized << std::endl;
+        -:   54:
+        1:   55:    std::string reversedWords = StringManipulator::reverseWords(inputString);
+        3:   56:    std::cout << "Reversed Words: " << reversedWords << std::endl;
+        -:   57:
+        1:   58:    std::string encodedHTML = StringManipulator::encodeHTML(inputString);
+        3:   59:    std::cout << "Encoded HTML: " << encodedHTML << std::endl;
+        -:   60:
+        1:   61:    return 0;
+        1:   62:}

@@ -1,0 +1,235 @@
+        -:    0:Source:StringManipulator.cpp
+        -:    0:Graph:StringManipulator.gcno
+        -:    0:Data:StringManipulator.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "StringManipulator.h"
+        -:    2:#include <algorithm>
+        -:    3:#include <cctype>
+        -:    4:#include <sstream>
+        -:    5:#include <iterator>
+        -:    6:#include <map>
+        -:    7:#include <stdexcept>
+        -:    8:#include <locale>
+        -:    9:#include <regex>
+        -:   10:#include <numeric>
+        -:   11:
+        2:   12:std::string StringManipulator::reverse(const std::string& str) {
+        2:   13:    std::string reversed = str;
+        2:   14:    std::reverse(reversed.begin(), reversed.end());
+        2:   15:    return reversed;
+        4:   16:}
+        -:   17:
+        2:   18:std::string StringManipulator::toUpperCase(const std::string& str) {
+        2:   19:    std::string upper = str;
+        4:   20:    std::transform(upper.begin(), upper.end(), upper.begin(),
+      102:   21:                   [](unsigned char c) -> unsigned char { return std::toupper(c); });
+        2:   22:    return upper;
+        4:   23:}
+        -:   24:
+        2:   25:std::string StringManipulator::toLowerCase(const std::string& str) {
+        2:   26:    std::string lower = str;
+        4:   27:    std::transform(lower.begin(), lower.end(), lower.begin(),
+      102:   28:                   [](unsigned char c) -> unsigned char { return std::tolower(c); });
+        2:   29:    return lower;
+        4:   30:}
+        -:   31:
+        2:   32:std::string StringManipulator::replace(const std::string& str, const std::string& from, const std::string& to) {
+        2:   33:    std::string result = str;
+        2:   34:    size_t start_pos = 0;
+       10:   35:    while ((start_pos = result.find(from, start_pos)) != std::string::npos) {
+        3:   36:        result.replace(start_pos, from.length(), to);
+        3:   37:        start_pos += to.length();
+        -:   38:    }
+        2:   39:    return result;
+        4:   40:}
+        -:   41:
+        2:   42:std::string StringManipulator::remove(const std::string& str, const std::string& substring) {
+        2:   43:    std::string result = str;
+        2:   44:    size_t start_pos = 0;
+       16:   45:    while ((start_pos = result.find(substring, start_pos)) != std::string::npos) {
+        6:   46:        result.erase(start_pos, substring.length());
+        -:   47:    }
+        2:   48:    return result;
+        4:   49:}
+        -:   50:
+        2:   51:int StringManipulator::countWords(const std::string& str) {
+        2:   52:    std::istringstream stream(str);
+        8:   53:    return std::distance(std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>());
+        2:   54:}
+        -:   55:
+        2:   56:bool StringManipulator::isPalindrome(const std::string& str) {
+        2:   57:    std::string cleaned;
+        6:   58:    std::remove_copy_if(str.begin(), str.end(), std::back_inserter(cleaned),
+      102:   59:                        [](char c) -> bool { return !std::isalnum(c); });
+        2:   60:    std::string reversed = cleaned;
+        2:   61:    std::reverse(reversed.end(), reversed.end());
+        2:   62:    return std::equal(cleaned.begin(), cleaned.end(), reversed.begin(),
+       48:   63:                      [](char a, char b) -> bool { return std::tolower(a) == std::tolower(b); });
+        2:   64:}
+        -:   65:
+        2:   66:size_t StringManipulator::findSubstring(const std::string& str, const std::string& substring) {
+        2:   67:    size_t position = str.find(substring);
+        2:   68:    if (position == std::string::npos) {
+    #####:   69:        throw std::runtime_error("Substring not found in the string.");
+        -:   70:    }
+        2:   71:    return position;
+    #####:   72:}
+        -:   73:
+        2:   74:std::vector<std::string> StringManipulator::split(const std::string& str, char delimiter) {
+        2:   75:    std::vector<std::string> tokens;
+        2:   76:    std::istringstream tokenStream(str);
+        2:   77:    std::string token;
+       40:   78:    while (std::getline(tokenStream, token, delimiter)) {
+        8:   79:        if (!token.empty()) {
+        8:   80:            tokens.push_back(token);
+        8:   81:        }
+        -:   82:    }
+        2:   83:    return tokens;
+        4:   84:}
+        -:   85:
+    #####:   86:std::string StringManipulator::rot13(const std::string& str) {
+    #####:   87:    std::string encoded = str;
+    #####:   88:    for (char& c : encoded) {
+    #####:   89:        if (isalpha(c)) {
+    #####:   90:            char base = islower(c) ? 'a' : 'A';
+    #####:   91:            c = (c - base + 13) % 26 + base;
+    #####:   92:        }
+        -:   93:    }
+    #####:   94:    return encoded;
+    #####:   95:}
+        -:   96:
+    #####:   97:std::map<char, int> StringManipulator::charFrequency(const std::string& str) {
+    #####:   98:    std::map<char, int> freq;
+    #####:   99:    for (char c : str) {
+    #####:  100:        if (isalpha(c)) {
+    #####:  101:            c = tolower(c);
+    #####:  102:            freq[c]++;
+    #####:  103:        }
+        -:  104:    }
+    #####:  105:    return freq;
+    #####:  106:}
+        -:  107:
+    #####:  108:std::string StringManipulator::trim(const std::string& str) {
+    #####:  109:    auto front = std::find_if_not(str.begin(), str.end(), [](unsigned char ch) { return std::isspace(ch); });
+    #####:  110:    auto back = std::find_if_not(str.rbegin(), str.rend(), [](unsigned char ch) { return std::isspace(ch); }).base();
+    #####:  111:    if (back <= front) {
+    #####:  112:        return "";
+        -:  113:    }
+    #####:  114:    return std::string(front, back);
+    #####:  115:}
+        -:  116:
+    #####:  117:bool StringManipulator::startsWith(const std::string& str, const std::string& substring) {
+    #####:  118:    return str.substr(0, substring.size()) == substring;
+        -:  119:}
+        -:  120:
+    #####:  121:bool StringManipulator::endsWith(const std::string& str, const std::string& substring) {
+    #####:  122:    if (str.length() >= substring.length()) {
+    #####:  123:        return str.compare(str.length() - substring.length(), substring.length(), substring) == 0;
+        -:  124:    }
+    #####:  125:    return false;
+    #####:  126:}
+        -:  127:
+    #####:  128:std::string StringManipulator::digitsToWords(const std::string& str) {
+        -:  129:    static const char* words[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    #####:  130:    std::string result;
+    #####:  131:    for (char c : str) {
+    #####:  132:        if (isdigit(c)) {
+    #####:  133:            if (!result.empty()) result += " ";
+    #####:  134:            result += words[c - '0'];
+    #####:  135:        }
+        -:  136:    }
+    #####:  137:    return result;
+    #####:  138:}
+        -:  139:
+    #####:  140:std::string StringManipulator::interleave(const std::string& str1, const std::string& str2) {
+    #####:  141:    std::string result;
+    #####:  142:    auto it1 = str1.begin(), it2 = str2.begin();
+    #####:  143:    while (it1 != str1.end() || it2 != str2.end()) {
+    #####:  144:        if (it1 != str1.end()) result += *it1++;
+    #####:  145:        if (it2 != str2.end()) result += *it2++;
+        -:  146:    }
+    #####:  147:    return result;
+    #####:  148:}
+        -:  149:
+    #####:  150:std::vector<size_t> StringManipulator::findAllSubstrings(const std::string& str, const std::string& substring) {
+    #####:  151:    std::vector<size_t> positions;
+    #####:  152:    size_t pos = str.find(substring, 0);
+    #####:  153:    while (pos != std::string::npos) {
+    #####:  154:        positions.push_back(pos);
+    #####:  155:        pos = str.find(substring, pos + substring.length());
+        -:  156:    }
+    #####:  157:    return positions;
+    #####:  158:}
+        -:  159:
+    #####:  160:std::string StringManipulator::invertCase(const std::string& str) {
+    #####:  161:    std::string result = str;
+    #####:  162:    std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c) -> unsigned char {
+    #####:  163:        if (isupper(c)) {
+    #####:  164:            return static_cast<unsigned char>(tolower(c));  // Cast to ensure type consistency
+        -:  165:        }
+    #####:  166:        if (islower(c)) {
+    #####:  167:            return static_cast<unsigned char>(toupper(c));  // Cast to ensure type consistency
+        -:  168:        }
+    #####:  169:        return c;  // No cast needed here because 'c' is already unsigned char
+    #####:  170:    });
+    #####:  171:    return result;
+    #####:  172:}
+        -:  173:
+        -:  174:
+        2:  175:std::string StringManipulator::shuffle(const std::string& str) {
+        2:  176:    std::string shuffled = str;
+        2:  177:    std::random_shuffle(shuffled.begin(), shuffled.end());
+        2:  178:    return shuffled;
+        4:  179:}
+        -:  180:
+        4:  181:std::string StringManipulator::join(const std::vector<std::string>& strings, const std::string& delimiter) {
+       12:  182:    return std::accumulate(strings.begin(), strings.end(), std::string(),
+       20:  183:                           [&delimiter](const std::string& a, const std::string& b) -> std::string {
+       88:  184:                               return a.empty() ? b : a + delimiter + b;
+    #####:  185:                           });
+    #####:  186:}
+        -:  187:
+        2:  188:std::string StringManipulator::normalizeSpaces(const std::string& str) {
+        2:  189:    std::string normalized;
+        6:  190:    std::unique_copy(str.begin(), str.end(), std::back_inserter(normalized), 
+      153:  191:                     [](char a, char b) { return std::isspace(a) && std::isspace(b) && a == b; });
+        2:  192:    return normalized;
+        4:  193:}
+        -:  194:
+        2:  195:std::string StringManipulator::capitalizeWords(const std::string& str) {
+        2:  196:    std::string capitalized;
+        2:  197:    bool newWord = true;
+      208:  198:    for (char ch : str) {
+       51:  199:        if (std::isspace(ch)) {
+        6:  200:            newWord = true;
+       51:  201:        } else if (newWord) {
+        8:  202:            ch = std::toupper(ch);
+        8:  203:            newWord = false;
+        8:  204:        }
+       51:  205:        capitalized += ch;
+        -:  206:    }
+        2:  207:    return capitalized;
+        4:  208:}
+        -:  209:
+        2:  210:std::string StringManipulator::reverseWords(const std::string& str) {
+        2:  211:    std::istringstream iss(str);
+        8:  212:    std::vector<std::string> words(std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>());
+        2:  213:    std::reverse(words.begin(), words.end());
+        6:  214:    return join(words, " ");
+        2:  215:}
+        -:  216:
+        2:  217:std::string StringManipulator::encodeHTML(const std::string& str) {
+        2:  218:    std::string encoded;
+      208:  219:    for (char ch : str) {
+       51:  220:        switch (ch) {
+    #####:  221:            case '&': encoded.append("&amp;"); break;
+    #####:  222:            case '<': encoded.append("&lt;"); break;
+    #####:  223:            case '>': encoded.append("&gt;"); break;
+    #####:  224:            case '"': encoded.append("&quot;"); break;
+    #####:  225:            case '\'': encoded.append("&#39;"); break;
+      102:  226:            default: encoded.push_back(ch); break;
+        -:  227:        }
+        -:  228:    }
+        2:  229:    return encoded;
+        4:  230:}
