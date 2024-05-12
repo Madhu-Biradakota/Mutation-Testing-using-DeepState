@@ -4,8 +4,7 @@ String Manipulation Library Testing with DeepState
 
 Abstract
 This report presents the results from testing the String Manipulation Library using the DeepState test harness, particularly emphasizing ‘DeepState_CStr’. This project uses fuzzing, mutation testing, and code coverage assessment to verify the library's robustness and error-resilience. The information gathered from these tests confirms the library's general dependability—achieved through thorough and methodical testing—and points out important areas that require improvement.
-Codes Github Link:
- https://github.com/Madhu-Biradakota/Mutation-Testing-using-DeepState
+
 1.	Introduction 
 To assure functionality and security, string manipulation is a vital component of software development that requires extensive testing. The DeepState framework has been used to conduct extensive testing on the String Manipulation Library, which is intended to offer a range of string operations. This project describes the techniques and resources used to assess the fault tolerance and performance of the library, including mutation testing, code coverage analysis, and fuzzing with ‘DeepState_CStr’.
 About the Code: The code includes functions for manipulating and examining strings, such as reversing, counting words, cutting, dividing, checking for substrings, checking for palindromes, and converting from uppercase to lowercase.
