@@ -1,143 +1,149 @@
 # Mutation-Testing-using-DeepState
 String Manipulation Library Testing with DeepState
 
-ABSTRACT
-THIS REPORT PRESENTS THE RESULTS FROM TESTING THE STRING MANIPULATION LIBRARY USING THE DEEPSTATE TEST HARNESS, PARTICULARLY EMPHASIZING ‘DEEPSTATE_CSTR’. THIS PROJECT USES FUZZING, MUTATION TESTING, AND CODE COVERAGE ASSESSMENT TO VERIFY THE LIBRARY'S ROBUSTNESS AND ERROR-RESILIENCE. THE INFORMATION GATHERED FROM THESE TESTS CONFIRMS THE LIBRARY'S GENERAL DEPENDABILITY—ACHIEVED THROUGH THOROUGH AND METHODICAL TESTING—AND POINTS OUT IMPORTANT AREAS THAT REQUIRE IMPROVEMENT.
 
-1.	INTRODUCTION 
-TO ASSURE FUNCTIONALITY AND SECURITY, STRING MANIPULATION IS A VITAL COMPONENT OF SOFTWARE DEVELOPMENT THAT REQUIRES EXTENSIVE TESTING. THE DEEPSTATE FRAMEWORK HAS BEEN USED TO CONDUCT EXTENSIVE TESTING ON THE STRING MANIPULATION LIBRARY, WHICH IS INTENDED TO OFFER A RANGE OF STRING OPERATIONS. THIS PROJECT DESCRIBES THE TECHNIQUES AND RESOURCES USED TO ASSESS THE FAULT TOLERANCE AND PERFORMANCE OF THE LIBRARY, INCLUDING MUTATION TESTING, CODE COVERAGE ANALYSIS, AND FUZZING WITH ‘DEEPSTATE_CSTR’.
-ABOUT THE CODE: THE CODE INCLUDES FUNCTIONS FOR MANIPULATING AND EXAMINING STRINGS, SUCH AS REVERSING, COUNTING WORDS, CUTTING, DIVIDING, CHECKING FOR SUBSTRINGS, CHECKING FOR PALINDROMES, AND CONVERTING FROM UPPERCASE TO LOWERCASE.
-2.	TESTING ENVIRONMENT SETUP
-HARDWARE AND SOFTWARE: TESTS WERE CONDUCTED ON A MACBOOK AIR WITH A 2.0 GHZ QUAD-CORE INTEL CORE I5, 16 GB RAM, RUNNING MACOS MOJAVE.
-TOOLS USED:
-•	DEEPSTATE: UTILIZED FOR FUZZ TESTING, PARTICULARLY WITH ‘DEEPSTATE_CSTR’ FOR GENERATING STRING INPUTS. A DOCKER IMAGE CONTAINING DEEPSTATE WAS EMPLOYED, PULLED FROM DOCKER USING THE COMMANDS ‘DOCKER PULL AGROCE/DEEPSTATE_EXAMPLES_AFLPP’ AND EXECUTED WITH ‘DOCKER RUN -IT AGROCE/DEEPSTATE_EXAMPLES_AFLPP’.
-•	MUTATION TESTING TOOLS: CUSTOM SCRIPTS FACILITATED BY COMMANDS SUCH AS ‘SUDO MUTATE’.
-•	CODE COVERAGE: IMPLEMENTED USING ‘CLANG++’ AND ‘LLVM-COV’
+Abstract
+This report presents the results from testing the String Manipulation Library using the DeepState test harness, particularly emphasizing ‘DeepState_CStr’. This project uses fuzzing, mutation testing, and code coverage assessment to verify the library's robustness and error-resilience. The information gathered from these tests confirms the library's general dependability—achieved through thorough and methodical testing—and points out important areas that require improvement.
+Codes Github Link:
+ https://github.com/Madhu-Biradakota/Mutation-Testing-using-DeepState
+1.	Introduction 
+To assure functionality and security, string manipulation is a vital component of software development that requires extensive testing. The DeepState framework has been used to conduct extensive testing on the String Manipulation Library, which is intended to offer a range of string operations. This project describes the techniques and resources used to assess the fault tolerance and performance of the library, including mutation testing, code coverage analysis, and fuzzing with ‘DeepState_CStr’.
+About the Code: The code includes functions for manipulating and examining strings, such as reversing, counting words, cutting, dividing, checking for substrings, checking for palindromes, and converting from uppercase to lowercase.
+2.	Testing Environment Setup
+Hardware and Software: Tests were conducted on a MacBook Air with a 2.0 GHz Quad-Core Intel Core i5, 16 GB RAM, running macOS Mojave.
+Tools Used:
+•	DeepState: Utilized for fuzz testing, particularly with ‘DeepState_CStr’ for generating string inputs. A Docker image containing DeepState was employed, pulled from Docker using the commands ‘docker pull agroce/deepstate_examples_aflpp’ and executed with ‘docker run -it agroce/deepstate_examples_aflpp’.
+•	Mutation Testing Tools: Custom scripts facilitated by commands such as ‘sudo mutate’.
+•	Code Coverage: Implemented using ‘Clang++’ and ‘llvm-cov’
 
-3.	METHODOLOGY:
-FUZZ TESTING WITH DEEPSTATE:
-•	SETUP INVOLVED CONFIGURING DEEPSTATE TO GENERATE TEST CASES TARGETING STRING MANIPULATION FUNCTIONS USING ‘DEEPSTATE_CSTR’.
-•	EXECUTION COMMAND: ‘./A.OUT --FUZZ --OUTPUT_TEST_DIR D --TIMEOUT 30’.
-MUTATION TESTING:
-•	MUTATION TESTING INTRODUCED FAULTS INTO THE LIBRARY TO ASSESS THE TEST SUITE'S ABILITY TO DETECT THEM.
-•	COMMANDS:
-O	CREATE MUTANTS: SUDO MUTATE STRINGMANIPULATOR.CPP.
-O	ANALYZE MUTANTS: ‘SUDO ANALYZE_MUTANTS STRINGMANIPULATOR.CPP FINAL_SM_2’.
-CODE COVERAGE:
-•	CODE COVERAGE MEASURED THE EXTENT TO WHICH THE SOURCE CODE WAS EXECUTED DURING TESTS.
-•	EXECUTION COMMANDS: ‘CLANG++ --COVERAGE -O OUTPUT_SM MAIN_STRINGMANIPULATOR.CPP STRINGMANIPULATOR.CPP’, FOLLOWED BY ‘LLVM-COV GCOV STRINGMANIPULATOR.CPP’.
-4.	STRING LIBRARY FUNCTIONS:
-THE STRING MANIPULATION LIBRARY CONSISTS OF THE FOLLOWING 24 FUNCTIONS:
-•	REVERSE: REVERSES THE GIVEN STRING.
-•	TOUPPERCASE: CONVERTS ALL CHARACTERS IN THE STRING TO UPPERCASE.
-•	TOLOWERCASE: CONVERTS ALL CHARACTERS IN THE STRING TO LOWERCASE.
-•	REPLACE: REPLACES OCCURRENCES OF A SUBSTRING WITH ANOTHER SUBSTRING IN THE GIVEN STRING.
-•	REMOVE: REMOVES ALL OCCURRENCES OF A SUBSTRING FROM THE STRING.
-•	COUNTWORDS: COUNTS THE NUMBER OF WORDS IN THE STRING.
-•	ISPALINDROME: CHECKS IF THE STRING IS A PALINDROME, IGNORING NON-ALPHANUMERIC CHARACTERS AND CASE.
-•	FINDSUBSTRING: FINDS THE STARTING INDEX OF THE FIRST OCCURRENCE OF A SUBSTRING.
-•	SHUFFLE: RANDOMLY SHUFFLES THE CHARACTERS IN THE STRING.
-•	JOIN: JOINS ELEMENTS OF A VECTOR OF STRINGS INTO A SINGLE STRING SEPARATED BY A DELIMITER.
-•	NORMALIZESPACES: NORMALIZES CONSECUTIVE SPACES TO A SINGLE SPACE IN THE STRING.
-•	CAPITALIZEWORDS: CAPITALIZES THE FIRST LETTER OF EACH WORD IN THE STRING.
-•	REVERSEWORDS: REVERSES THE ORDER OF WORDS IN THE STRING.
-•	ENCODEHTML: ENCODES SPECIAL HTML CHARACTERS IN THE STRING.
-•	TRIM: REMOVES LEADING AND TRAILING SPACES FROM THE STRING.
-•	TRIMLEFT: REMOVES LEADING SPACES FROM THE STRING.
-•	TRIMRIGHT: REMOVES TRAILING SPACES FROM THE STRING.
-•	COMPARE: COMPARES TWO STRINGS FOR EQUALITY, IGNORING CASE.
-•	SPLIT: SPLITS THE STRING INTO A VECTOR OF STRINGS BASED ON A DELIMITER.
-•	CONTAINS: CHECKS IF THE STRING CONTAINS A SPECIFIED SUBSTRING.
-•	COUNTCHARACTER: COUNTS OCCURRENCES OF A SPECIFIC CHARACTER IN THE STRING.
-•	FINDFIRSTNOTOF: FINDS THE FIRST CHARACTER IN THE STRING THAT DOES NOT MATCH ANY CHARACTER SPECIFIED IN THE ARGUMENT.
-•	FINDFIRSTOF: FINDS THE FIRST CHARACTER IN THE STRING THAT MATCHES ANY CHARACTER SPECIFIED IN THE ARGUMENT.
-•	COUNTDISTINCTWORDS: COUNTS THE NUMBER OF DISTINCT WORDS IN THE STRING.
+3.	Methodology:
+Fuzz Testing with DeepState:
+•	Setup involved configuring DeepState to generate test cases targeting string manipulation functions using ‘DeepState_CStr’.
+•	Execution command: ‘./a.out --fuzz --output_test_dir d --timeout 30’.
+Mutation Testing:
+•	Mutation testing introduced faults into the library to assess the test suite's ability to detect them.
+•	Commands:
+o	Create mutants: sudo mutate StringManipulator.cpp.
+o	Analyze mutants: ‘sudo analyze_mutants StringManipulator.cpp Final_SM_2’.
+Code Coverage:
+•	Code coverage measured the extent to which the source code was executed during tests.
+•	Execution commands: ‘clang++ --coverage -o output_SM main_StringManipulator.cpp StringManipulator.cpp’, followed by ‘llvm-cov gcov StringManipulator.cpp’.
+4.	String Library Functions:
+The String Manipulation Library consists of the following 24 functions:
+•	reverse: Reverses the given string.
+•	toUpperCase: Converts all characters in the string to uppercase.
+•	toLowerCase: Converts all characters in the string to lowercase.
+•	replace: Replaces occurrences of a substring with another substring in the given string.
+•	remove: Removes all occurrences of a substring from the string.
+•	countWords: Counts the number of words in the string.
+•	isPalindrome: Checks if the string is a palindrome, ignoring non-alphanumeric characters and case.
+•	findSubstring: Finds the starting index of the first occurrence of a substring.
+•	shuffle: Randomly shuffles the characters in the string.
+•	join: Joins elements of a vector of strings into a single string separated by a delimiter.
+•	normalizeSpaces: Normalizes consecutive spaces to a single space in the string.
+•	capitalizeWords: Capitalizes the first letter of each word in the string.
+•	reverseWords: Reverses the order of words in the string.
+•	encodeHTML: Encodes special HTML characters in the string.
+•	trim: Removes leading and trailing spaces from the string.
+•	trimLeft: Removes leading spaces from the string.
+•	trimRight: Removes trailing spaces from the string.
+•	compare: Compares two strings for equality, ignoring case.
+•	split: Splits the string into a vector of strings based on a delimiter.
+•	contains: Checks if the string contains a specified substring.
+•	countCharacter: Counts occurrences of a specific character in the string.
+•	findFirstNotOf: Finds the first character in the string that does not match any character specified in the argument.
+•	findFirstOf: Finds the first character in the string that matches any character specified in the argument.
+•	countDistinctWords: Counts the number of distinct words in the string.
 
-5.	CODE METRICS:
-STRINGMANIPULATOR.CPP:
-•	THIS FILE CONTAINS THE LIBRARY’S IMPLEMENTATION OF 24 DIFFERENT STRING MANIPULATION FUNCTIONS, WHICH SHOWS THE LIBRARY'S ROBUSTNESS AND VERSATILITY.
-•	USING CLOC COMMAND, ‘STRINGMANIPULATOR.CPP’ COMPRISES A TOTAL OF 205 LINES OF CODE. 
+5.	Code Metrics:
+StringManipulator.cpp:
+•	This file contains the library’s implementation of 24 different string manipulation functions, which shows the library's robustness and versatility.
+•	Using CLOC command, ‘StringManipulator.cpp’ comprises a total of 205 lines of code. 
  
-TESTSTRINGMANIPULATOR.CPP:
-•	THIS FILE HAS TEST FUNCTIONS FOR STRINGMANIPULATOR.CPP THROUGH THE DEEPSTATE FRAMEWORK. IT NOTABLY USES DEEPSTATE_CSTR TO GENERATE TEST INPUTS, ENSURING EACH FUNCTION IS THOROUGHLY EVALUATED.
-•	THE TESTSTRINGMANIPULATOR.CPP FILE CONSISTS OF 100 LINES OF CODE, PRIMARILY MADE UP OF TEST CASES.
+TestStringManipulator.cpp:
+•	This file has test functions for StringManipulator.cpp through the DeepState framework. It notably uses DeepState_CStr to generate test inputs, ensuring each function is thoroughly evaluated.
+•	The TestStringManipulator.cpp file consists of 100 lines of code, primarily made up of test cases.
  
-STRINGMANIPULATOR.H:
-•	THE STRINGMANIPULATOR.H FILE ACTS AS THE HEADER FOR THE STRINGMANIPULATOR.CPP, CONTAINING ALL THE FUNCTION DECLARATIONS.
+StringManipulator.h:
+•	The StringManipulator.h file acts as the header for the StringManipulator.cpp, containing all the function declarations.
  
-MAIN_STRINGMANIPULATOR.CPP:
-•	IT CONTAINS THE ‘MAIN’ FUNCTION.
+main_StringManipulator.cpp:
+•	It contains the ‘main’ function.
  
-THE TOTAL NUMBER OF LINES OF CODE COMBINED IS 381.
+The total number of lines of code combined is 381.
  
 
-6.	TRANSFERRING FILES TO DOCKER CONTAINER:
-I TRANSFERRED ESSENTIAL PROJECT FILES FROM MY LOCAL MACHINE TO THE DOCKER CONTAINER TO FACILITATE TESTING WITHIN A CONTROLLED ENVIRONMENT. HERE’S A SUMMARY OF THE TRANSFER PROCESS:
-COMMAND: DOCKER CP <LOCAL_PATH> <CONTAINER_ID>:<CONTAINER_PATH>
+6.	Transferring Files to Docker Container:
+I transferred essential project files from my local machine to the Docker container to facilitate testing within a controlled environment. Here’s a summary of the transfer process:
+Command: docker cp <local_path> <container_id>:<container_path>
  
-7.	EXECUTION PROCESS AND RESULTS:
-I CONDUCTED A SERIES OF COMMANDS WITHIN A DOCKER ENVIRONMENT TO TEST THE STRING MANIPULATION LIBRARY USING DEEPSTATE. HERE’S THE PROCESS:
-I.	STARTING THE DOCKER CONTAINER:
-•	COMMAND: DOCKER EXEC -IT 40F3DA57EAFF BASH
-•	PURPOSE: THIS COMMAND LAUNCHES THE DOCKER CONTAINER(CONTAINER ID: 40F3DA57EAFF).
-II.	COMPILING THE CODE:
-•	COMMAND: CLANG++ STRINGMANIPULATOR.CPP TESTSTRINGMANIPULATOR.CPP -LDEEPSTATE
-•	PURPOSE: THIS COMMAND COMPILES STRINGMANIPULATOR.CPP AND TESTSTRINGMANIPULATOR.CPP USING CLANG++, LINKING THE DEEPSTATE LIBRARY FOR FUZZ TESTING.
-III.	EXECUTING THE TESTS:
-•	COMMAND: ./A.OUT
-•	PURPOSE: EXECUTES THE COMPILED CODE TO RUN THE TEST FUNTIONS SPECIFIED IN TESTSTRINGMANIPULATOR.CPP
+7.	Execution Process and Results:
+I conducted a series of commands within a Docker environment to test the String Manipulation Library using DeepState. Here’s the process:
+i.	Starting the Docker Container:
+•	Command: docker exec -it 40f3da57eaff bash
+•	Purpose: This command launches the Docker container(container id: 40f3da57eaff).
+ii.	Compiling the Code:
+•	Command: clang++ StringManipulator.cpp TestStringManipulator.cpp -ldeepstate
+•	Purpose: This command compiles StringManipulator.cpp and TestStringManipulator.cpp using Clang++, linking the DeepState library for fuzz testing.
+iii.	Executing the Tests:
+•	Command: ./a.out
+•	Purpose: Executes the compiled code to run the test funtions specified in TestStringManipulator.cpp
  
-IV.	OUTCOMES: 
-THE TEST RESULTS SHOWN IN THE SCREENSHOT DEMONSTRATE THE EXECUTION OF VARIOUS STRING MANIPULATION FUNCTIONS:
-•	FUNCTIONS LIKE STRINGMANIPULATOR_REVERSE, STRINGMANIPULATOR_TOUPPERCASE, AND STRINGMANIPULATOR_COUNTWORDS PASSED, CONFIRMING THEIR OPERATIONAL INTEGRITY.
-•	HOWEVER, SOME FUNCTIONS, LIKE STRINGMANIPULATOR_REPLACE AND STRINGMANIPULATOR_SHUFFLE FAILING THE TESTS.
-I.	FUZZ TESTING PROCESS AND RESULTS:
-I CARRIED OUT A SERIES OF FUZZ TESTS USING THE RUN_TESTS.SH SHELL SCRIPT. THIS SCRIPT IS DESIGNED TO AUTOMATE THE FUZZ TESTING PROCESS FOR EACH FUNCTION LISTED IN ITS TEST ARRAY.
-I.	SCRIPT EXECUTION DETAILS:
-•	COMMAND: TO START FUZZ TESTING FOR EACH SPECIFIED FUNCTION, THE SCRIPT EXECUTES THE FOLLOWING COMMAND:
-•	./A.OUT --FUZZ --OUTPUT_TEST_DIR $OUTPUT_DIR --TIMEOUT 30 --RUN_TEST $TEST
-•	THIS COMMAND RUNS EACH TEST WITH A 30 SEC TIMEOUT.
+iv.	Outcomes: 
+The test results shown in the screenshot demonstrate the execution of various string manipulation functions:
+•	Functions like StringManipulator_Reverse, StringManipulator_ToUpperCase, and StringManipulator_CountWords passed, confirming their operational integrity.
+•	However, some functions, like StringManipulator_Replace and StringManipulator_Shuffle failing the tests.
+I.	Fuzz Testing Process and Results:
+I carried out a series of fuzz tests using the run_tests.sh shell script. This script is designed to automate the fuzz testing process for each function listed in its test array.
+i.	Script Execution Details:
+•	Command: To start fuzz testing for each specified function, the script executes the following command:
+•	./a.out --fuzz --output_test_dir $output_dir --timeout 30 --run_test $test
+•	This command runs each test with a 30 sec timeout.
  
-II.	EXECUTION OF SCRIPT:
-•	STARTING THE SCRIPT: THE SHELL SCRIPT WAS EXECUTED USING: ./RUN_TESTS.SH
-•	THIS COMMAND TRIGGERS A SERIES OF FUZZ TESTS, EXECUTING THEM SEQUENTIALLY FOR EACH FUNCTION LISTED IN THE SCRIPT.
+ii.	Execution of Script:
+•	Starting the Script: The shell script was executed using: ./run_tests.sh
+•	This command triggers a series of fuzz tests, executing them sequentially for each function listed in the script.
 
-III.	OUTCOME:
-•	THE SCREENSHOTS BELOW SHOW HOW THE SCRIPT EXECUTED FUZZ TESTING ON STRING MANIPULATION FUNCTIONS.
-•	THE OUTCOMES OF THESE TESTS VARIED, WITH SOME FUNCTIONS COMPLETED SUCCESSFULLY. 
+iii.	Outcome:
+•	The screenshots below show how the script executed fuzz testing on string manipulation functions.
+•	The outcomes of these tests varied, with some functions completed successfully. 
  
  
-II.	MUTATION TESTING AND ANALYSIS:
-I CONDUCTED MUTATION TESTING ON THE STRING MANIPULATOR LIBRARY. THIS PROCESS HAS IN TWO PARTS:
-I.	CREATING MUTANTS:
-•	COMMAND: SUDO MUTATE STRINGMANIPULATOR.CPP --CMD "CLANG++ -STD=C++11 -C -O SM_MUTANTS STRINGMANIPULATOR.CPP" --MUTANTDIR MUTANTS
-•	OUTCOME: THIS COMMAND SUCCESSFULLY PRODUCED OVER 1,313 MUTANTS OF THE STRINGMANIPULATOR.CPP FILE MUTANTS. OUT OF 1313 MUTANTS, 444 VALID MUTANTS AND 869 INVALID MUTANTS WITH A VALID PERCENTAGE OF 33.81%. 
+II.	Mutation Testing and Analysis:
+I conducted mutation testing on the String Manipulator Library. This process has in two parts:
+i.	Creating Mutants:
+•	Command: sudo mutate StringManipulator.cpp --cmd "clang++ -std=c++11 -c -o SM_mutants StringManipulator.cpp" --mutantDir mutants
+•	Outcome: This command successfully produced over 1,313 mutants of the StringManipulator.cpp file mutants. Out of 1313 mutants, 444 valid mutants and 869 invalid mutants with a valid percentage of 33.81%. 
  
  
  
-II.	ANALYZING MUTANTS:
-•	COMMAND: ANALYZE_MUTANTS STRINGMANIPULATOR.CPP "CLANG++ -STD=C++11 STRINGMANIPULATOR.CPP TESTSTRINGMANIPULATOR.CPP -LDEEPSTATE -O A.OUT; ./A.OUT --FUZZ --ABORT_ON_FAIL --TIMEOUT 3" --TIMEOUT 10 --VERBOSE --MUTANTDIR MUTANTS 
-•	EXECUTION: THE ANALYSIS INVOLVED RUNNING THE GENERATED MUTANTS TO SEE IF THE TESTS COULD ELIMINATE THE MUTANTS, LIKE "KILLING" THEM.
+ii.	Analyzing Mutants:
+•	Command: analyze_mutants StringManipulator.cpp "clang++ -std=c++11 StringManipulator.cpp TestStringManipulator.cpp -ldeepstate -o a.out; ./a.out --fuzz --abort_on_fail --timeout 3" --timeout 10 --verbose --mutantDir mutants 
+•	Execution: The analysis involved running the generated mutants to see if the tests could eliminate the mutants, like "killing" them.
  
-OUTCOME: THE TEST ACHIEVED A MUTATION SCORE OF 0.532252, INDICATING THAT APPROXIMATELY 53% OF THE MUTANTS WERE DETECTED.  
-III.	CODE COVERAGE ASSESSMENT
-I PERFORMED A CODE COVERAGE ANALYSIS ON THE STRING MANIPULATION LIBRARY. THIS INVOLVED COMPILING THE CODE WITH COVERAGE AND THEN EXECUTING IT TO COLLECT RELEVANT DATA.
-I.	COMPILING WITH COVERAGE OPTIONS:
-•	COMMAND: CLANG++ --COVERAGE -O OUTPUT_SM MAIN_STRINGMANIPULATOR.CPP STRINGMANIPULATOR.CPP
-•	PURPOSE: THIS COMMAND COMPILES THE SOURCE FILES WITH COVERAGE INSTRUMENTATION, ENABLING THE GENERATION OF DATA ON WHICH PARTS OF THE CODE ARE EXECUTED DURING TESTS.
-II.	EXECUTING THE COMPILED PROGRAM:
-•	COMMAND: ./OUTPUT_SM
-•	OUTCOME: RUNNING THE OUTPUT EXECUTABLE ALLOWS US TO TEST THE LIBRARY'S FUNCTIONALITIES.
+Outcome: The test achieved a mutation score of 0.532252, indicating that approximately 53% of the mutants were detected.  
+III.	Code Coverage Assessment
+I performed a code coverage analysis on the String Manipulation Library. This involved compiling the code with coverage and then executing it to collect relevant data.
+i.	Compiling with Coverage Options:
+•	Command: clang++ --coverage -o output_SM main_StringManipulator.cpp StringManipulator.cpp
+•	Purpose: This command compiles the source files with coverage instrumentation, enabling the generation of data on which parts of the code are executed during tests.
+ii.	Executing the Compiled Program:
+•	Command: ./output_SM
+•	Outcome: Running the output executable allows us to test the library's functionalities.
  
-III.	ANALYZING COVERAGE DATA :
-•	COMMAND: LLVM-COV GCOV STRINGMANIPULATOR.CPP
-•	RESULT: THIS TOOL EXAMINES THE COVERAGE DATA COLLECTED DURING TEST RUNS. 
+iii.	Analyzing Coverage Data :
+•	Command: llvm-cov gcov StringManipulator.cpp
+•	Result: This tool examines the coverage data collected during test runs. 
  
-ACHIEVED A CODE COVERAGE METRIC OF 56.50%, INDICATING THAT MORE THAN HALF OF THE CODE WAS SUCCESSFULLY EXECUTED AND TESTED DURING THE ANALYSIS.
+Achieved a code coverage metric of 56.50%, indicating that more than half of the code was successfully executed and tested during the analysis.
  
-REFERENCES
-[1] 	LLVM, “LLVM-COV - EMIT COVERAGE INFORMATION,” [ONLINE]. AVAILABLE: HTTPS://LLVM.ORG/DOCS/COMMANDGUIDE/LLVM-COV.HT.
+References
+[1] 	LLVM, “llvm-cov - emit coverage information,” [Online]. Available: https://llvm.org/docs/CommandGuide/llvm-cov.ht.
 
-[2] 	SPRINGER, “MUTATION TESTING IN THE WILD: FINDINGS FROM GITHUB,” [ONLINE]. AVAILABLE: HTTPS://LINK.SPRINGER.COM/ARTICLE/10.1007/S10664-022-10177-8.
+[2] 	Springer, “Mutation testing in the wild: findings from GitHub,” [Online]. Available: https://link.springer.com/article/10.1007/s10664-022-10177-8.
+
+
+
+
 
 
